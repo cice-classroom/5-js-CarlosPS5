@@ -28,13 +28,12 @@ export class AppRoot extends LitElement {
   }
 
   @property()
-  cells: {row:number,column:number,enable:boolean}[] = [
-    {row:1,column:1,enable:true},{row:1,column:2,enable:true},{row:1,column:3,enable:true},
-    {row:2,column:1,enable:true},{row:2,column:2,enable:true},{row:2,column:3,enable:true},
-    {row:3,column:1,enable:true},{row:3,column:2,enable:true},{row:3,column:3,enable:true}
+  cells: {row:number,column:number,enable:boolean,modifiedBy:string}[] = [
+    {row:1,column:1,enable:true,modifiedBy:""},{row:1,column:2,enable:true,modifiedBy:""},{row:1,column:3,enable:true,modifiedBy:""},
+    {row:2,column:1,enable:true,modifiedBy:""},{row:2,column:2,enable:true,modifiedBy:""},{row:2,column:3,enable:true,modifiedBy:""},
+    {row:3,column:1,enable:true,modifiedBy:""},{row:3,column:2,enable:true,modifiedBy:""},{row:3,column:3,enable:true,modifiedBy:""}
   ]
   turn: number = 1
-  player: string = "X"
 
 
   
@@ -45,7 +44,7 @@ export class AppRoot extends LitElement {
         <h1>Tic Tac Toe Game</h1>
         <div class="tic_tac_toe">
         ${console.log("Es turno de Player " + this.turn)}
-          <app-board @on-cell-clicked=${this.cellClicked} .cells=${this.cells} .turn=${this.turn} ></app-board>
+          <app-board @on-cell-clicked=${this.cellClicked} .cells=${this.cells} .turn=${this.turn}></app-board>
           <app-marker .turn=${this.turn}></app-marker>
         </div>
       </div>
@@ -55,8 +54,13 @@ export class AppRoot extends LitElement {
   cellClicked(event:CustomEvent) {
     this.cells = this.cells.map(cell => {
       if(cell.row === event.detail.cell.row && cell.column === event.detail.cell.column) {
-        return{
-          ...cell,enable:false
+        if(event.detail.turn === 1) {
+          return {
+            ...cell,enable:false,modifiedBy:"X"
+          }
+        } 
+        return {
+          ...cell,enable:false,modifiedBy:"O"
         }
       }
       return cell

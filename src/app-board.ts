@@ -3,7 +3,7 @@ import { customElement, property, LitElement, html, css } from 'lit-element';
 @customElement('app-board')
 export class AppBoard extends LitElement {
   @property() 
-  cells: {row:number,column:number,enable:boolean}[] = []
+  cells: {row:number,column:number,enable:boolean,modifiedBy:string}[] = []
 
   player: string = ""
   turn: number = 1
@@ -30,7 +30,7 @@ export class AppBoard extends LitElement {
   render() {
     return html`
       <div class="board">
-      ${this.cells.map(cell => html`<app-cell @click="${() => this.cellClicked(cell,this.turn)}" .row=${cell.row} .column=${cell.column} .enable=${cell.enable}><app-cell>`)}
+      ${this.cells.map(cell => html`<app-cell @click="${() => this.cellClicked(cell,this.turn)}" .row=${cell.row} .column=${cell.column} .enable=${cell.enable} .modifiedBy=${cell.modifiedBy}><app-cell>`)}
       </div>
     `;
   }

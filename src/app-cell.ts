@@ -13,6 +13,7 @@ export class AppCell extends LitElement {
     return css`
       .cell {
           height: 100%;
+          font-size: 48px;
           border: 1px solid black;
           display:flex;
           justify-content: center;
@@ -26,7 +27,6 @@ export class AppCell extends LitElement {
   render() {
     return html`
       <div class="cell">
-      ${this.enable}
       ${this.modifiedBy}
       </div>
     `;

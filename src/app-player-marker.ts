@@ -6,6 +6,7 @@ export class AppPlayerMarker extends LitElement {
   turn:number=0; 
   player:String = "";
   score:number = 0;
+  symbolPlayer: string = ""
 
 
   static get styles() {
@@ -23,7 +24,7 @@ export class AppPlayerMarker extends LitElement {
   render() {
     return html`
       <div class="player__marker">
-      ${this.turn === Number(this.player)? html`<strong><p><label> Player ${this.player}</label></p></strong>`:html`<p><label> Player ${this.player}</label></p>`}
+      ${this.turn === Number(this.player)? html`<strong><p style="color:#6FE896";><label> Player ${this.player} ----> ${this.symbolPlayer}</label></p></strong>`:html`<p><label> Player ${this.player} ---> ${this.symbolPlayer}</label></p>`}
         <p><label>${this.score}</label></p>
       </div>
     `;
