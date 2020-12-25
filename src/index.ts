@@ -3,3 +3,4 @@ import './app-board';
 import './app-cell';
 import './app-marker';
 import './app-player-marker';
+import './app-button-again';

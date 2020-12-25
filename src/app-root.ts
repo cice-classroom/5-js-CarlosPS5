@@ -1,4 +1,5 @@
 import { customElement, property, LitElement, html, css } from 'lit-element';
+import {Engine} from './app-engine'
 
 @customElement('app-root')
 export class AppRoot extends LitElement {
@@ -34,7 +35,11 @@ export class AppRoot extends LitElement {
     {row:3,column:1,enable:true,modifiedBy:""},{row:3,column:2,enable:true,modifiedBy:""},{row:3,column:3,enable:true,modifiedBy:""}
   ]
   turn: number = 1
-
+  engine: Engine = new Engine(this.cells)
+  winner: string = ""
+  isDraw: boolean = false
+  scoreX: number = 0
+  scoreO: number = 0
 
   
 
@@ -45,27 +50,49 @@ export class AppRoot extends LitElement {
         <div class="tic_tac_toe">
         ${console.log("Es turno de Player " + this.turn)}
           <app-board @on-cell-clicked=${this.cellClicked} .cells=${this.cells} .turn=${this.turn}></app-board>
-          <app-marker .turn=${this.turn}></app-marker>
+          <app-marker .scorePlayer1=${this.scoreX} .scorePlayer2=${this.scoreO} .turn=${this.turn}></app-marker>
+          ${this.winner!="" || this.isDraw != false? html`<app-button-again @click=${this.playAgain}  style="align-self:center;"></app-button-again>` : html``}
         </div>
       </div>
     `;
   }
 
   cellClicked(event:CustomEvent) {
-    this.cells = this.cells.map(cell => {
-      if(cell.row === event.detail.cell.row && cell.column === event.detail.cell.column) {
-        if(event.detail.turn === 1) {
-          return {
-            ...cell,enable:false,modifiedBy:"X"
-          }
-        } 
-        return {
-          ...cell,enable:false,modifiedBy:"O"
-        }
+    this.cells = this.engine.play({row:event.detail.cell.row,column:event.detail.cell.column,player:event.detail.turn === 1? "X" : "O"})
+    this.winner = this.engine.checkWin(event.detail.turn === 1? "X" : "O")
+  
+    if(this.winner != "") {
+      this.cells = this.engine.disableCells()
+      if(event.detail.turn === 1) {
+        alert("HA GANADO EL PLAYER 1!")
+        this.scoreX++
+      } else {
+        alert("HA GANADO EL PLAYER 2!")
+        this.scoreO++
       }
-      return cell
-      })
+    } else {
+      this.isDraw = this.engine.checkDraw()
+      if(this.isDraw) {
+        alert("HABÉIS EMPATADO!")
+      } 
+    }
     console.log("Jugada para Player " + this.turn + " realizada")
     event.detail.turn === 1? this.turn = 2 : this.turn = 1
   }
+
+  playAgain() {
+    this.cells = [
+      {row:1,column:1,enable:true,modifiedBy:""},{row:1,column:2,enable:true,modifiedBy:""},{row:1,column:3,enable:true,modifiedBy:""},
+      {row:2,column:1,enable:true,modifiedBy:""},{row:2,column:2,enable:true,modifiedBy:""},{row:2,column:3,enable:true,modifiedBy:""},
+      {row:3,column:1,enable:true,modifiedBy:""},{row:3,column:2,enable:true,modifiedBy:""},{row:3,column:3,enable:true,modifiedBy:""}
+    ]
+    this.winner = ""
+    this.turn = 1
+    this.isDraw = false
+    this.engine = new Engine(this.cells)
+  }
+
 }
+
+
+

@@ -4,6 +4,7 @@ import { customElement, property, LitElement, html, css } from 'lit-element';
 export class AppMarker extends LitElement {
   @property()
    turn:number = 1
+   winner:string = ""
    player1: number = 1;
    symbolplayer1: string = "X"
    scorePlayer1: number = 0;
@@ -15,6 +16,7 @@ export class AppMarker extends LitElement {
     return css`
       .marker {
           display: flex;
+          flex-direction:column;
           align-self: center;
       }
     `;
