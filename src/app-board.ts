@@ -3,8 +3,8 @@ import { customElement, property, LitElement, html, css } from 'lit-element';
 @customElement('app-board')
 export class AppBoard extends LitElement {
   @property() 
-  cells: {row:number,column:number,enable:boolean,modifiedBy:string}[] = []
-
+  cells: Cell[] = []
+  
   player: string = ""
   turn: number = 1
 
@@ -53,4 +53,11 @@ export class AppBoard extends LitElement {
         alert("Esta celda ya está clickada, prueba con otra");
     }
     }
+}
+
+export interface Cell {
+  row:number,
+  column:number,
+  enable:boolean,
+  modifiedBy:string
 }

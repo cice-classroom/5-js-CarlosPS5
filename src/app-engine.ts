@@ -1,18 +1,20 @@
-export class Engine { 
-    tablero:{row:number,column:number,enable:boolean,modifiedBy:string}[]
+import type { Cell } from "./app-board"
 
-    constructor(cells:{row:number,column:number,enable:boolean,modifiedBy:string}[]){
+export class Engine { 
+    tablero:Cell[]
+
+    constructor(cells:Cell[]){
         this.tablero = cells
     }
 
     
     
 
-    board():{row:number,column:number,enable:boolean,modifiedBy:string}[] {
+    board():Cell[] {
         return this.tablero
     }
 
-    play(jugada:{row:number,column:number,player:string}):{row:number,column:number,enable:boolean,modifiedBy:string}[] {
+    play(jugada:{row:number,column:number,player:string}):Cell[] {
         this.tablero = this.tablero.map(cell => {
             if(cell.row === jugada.row && cell.column === jugada.column) {
                 return {...cell,enable:false,modifiedBy:jugada.player}
@@ -24,7 +26,7 @@ export class Engine {
     }
 
     checkWin(player:string):string {
-        const jugador:{row:number,column:number,enable:boolean,modifiedBy:string}[] = this.tablero.filter(cell => {return cell.enable===false && cell.modifiedBy===player})
+        const jugador:Cell[] = this.tablero.filter(cell => {return cell.enable===false && cell.modifiedBy===player})
         //ROWS
         if(jugador.filter(cell => {return cell.row === 1}).length === 3) {
             return player
@@ -62,7 +64,7 @@ export class Engine {
         return false
     }
 
-    disableCells():{row:number,column:number,enable:boolean,modifiedBy:string}[] {
+    disableCells():Cell[] {
         this.tablero = this.tablero.map(cell => {
             if(cell.enable === true) {
                 return {

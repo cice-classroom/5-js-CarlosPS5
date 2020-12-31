@@ -1,9 +1,10 @@
+import type { Cell } from './app-board'
 import {Engine as Tablero} from './app-engine'
 
 describe('app-engine', () => {
     it('Should return the status board', () => {
         //GIVEN
-        const givenBoard:{row:number,column:number,enable:boolean,modifiedBy:string}[]= [
+        const givenBoard:Cell[]= [
             {row:1,column:1,enable:false,modifiedBy:"X"},{row:1,column:2,enable:true,modifiedBy:""},{row:1,column:3,enable:true,modifiedBy:""},
             {row:2,column:1,enable:true,modifiedBy:""},{row:2,column:2,enable:true,modifiedBy:""},{row:2,column:3,enable:true,modifiedBy:""},
             {row:3,column:1,enable:true,modifiedBy:""},{row:3,column:2,enable:true,modifiedBy:""},{row:3,column:3,enable:true,modifiedBy:""}
@@ -20,7 +21,7 @@ describe('app-engine', () => {
 
     it('Should return the status board after a play', () => {
         //GIVEN
-        const givenBoard:{row:number,column:number,enable:boolean,modifiedBy:string}[]= [
+        const givenBoard:Cell[]= [
             {row:1,column:1,enable:false,modifiedBy:"X"},{row:1,column:2,enable:true,modifiedBy:""},{row:1,column:3,enable:true,modifiedBy:""},
             {row:2,column:1,enable:true,modifiedBy:""},{row:2,column:2,enable:true,modifiedBy:""},{row:2,column:3,enable:true,modifiedBy:""},
             {row:3,column:1,enable:true,modifiedBy:""},{row:3,column:2,enable:true,modifiedBy:""},{row:3,column:3,enable:true,modifiedBy:""}
@@ -37,7 +38,7 @@ describe('app-engine', () => {
 
     it('Should check player´s turn', () => {
         //GIVEN
-        const givenBoard:{row:number,column:number,enable:boolean,modifiedBy:string}[]= [
+        const givenBoard:Cell[]= [
             {row:1,column:1,enable:true,modifiedBy:""},{row:1,column:2,enable:true,modifiedBy:""},{row:1,column:3,enable:true,modifiedBy:""},
             {row:2,column:1,enable:true,modifiedBy:""},{row:2,column:2,enable:true,modifiedBy:""},{row:2,column:3,enable:true,modifiedBy:""},
             {row:3,column:1,enable:true,modifiedBy:""},{row:3,column:2,enable:true,modifiedBy:""},{row:3,column:3,enable:true,modifiedBy:""}
@@ -54,26 +55,9 @@ describe('app-engine', () => {
             {row:3,column:1,enable:true,modifiedBy:""} , {row:3,column:2,enable:false,modifiedBy:"X"} , {row:3,column:3,enable:true,modifiedBy:""}])
     })
 
-    it('Should return the status board after a play', () => {
-        //GIVEN
-        const givenBoard:{row:number,column:number,enable:boolean,modifiedBy:string}[]= [
-            {row:1,column:1,enable:false,modifiedBy:"X"},{row:1,column:2,enable:true,modifiedBy:""},{row:1,column:3,enable:true,modifiedBy:""},
-            {row:2,column:1,enable:true,modifiedBy:""},{row:2,column:2,enable:true,modifiedBy:""},{row:2,column:3,enable:true,modifiedBy:""},
-            {row:3,column:1,enable:true,modifiedBy:""},{row:3,column:2,enable:true,modifiedBy:""},{row:3,column:3,enable:true,modifiedBy:""}
-          ]
-        const tablero = new Tablero(givenBoard)
-        //WHEN
-        const actual = tablero.play({row:1,column:2,player:"O"})
-        //THEN
-        expect(actual).toEqual([
-            {row:1,column:1,enable:false,modifiedBy:"X"} , {row:1,column:2,enable:false,modifiedBy:"O"} , {row:1,column:3,enable:true,modifiedBy:""},
-            {row:2,column:1,enable:true,modifiedBy:""} , {row:2,column:2,enable:true,modifiedBy:""} , {row:2,column:3,enable:true,modifiedBy:""},
-            {row:3,column:1,enable:true,modifiedBy:""} , {row:3,column:2,enable:true,modifiedBy:""} , {row:3,column:3,enable:true,modifiedBy:""}])
-    })
-
     it('Should check if a player wins', () => {
         //GIVEN
-        const givenBoard:{row:number,column:number,enable:boolean,modifiedBy:string}[]= [
+        const givenBoard:Cell[]= [
             {row:1,column:1,enable:true,modifiedBy:""},{row:1,column:2,enable:true,modifiedBy:""},{row:1,column:3,enable:true,modifiedBy:""},
             {row:2,column:1,enable:true,modifiedBy:""},{row:2,column:2,enable:true,modifiedBy:""},{row:2,column:3,enable:true,modifiedBy:""},
             {row:3,column:1,enable:true,modifiedBy:""},{row:3,column:2,enable:true,modifiedBy:""},{row:3,column:3,enable:true,modifiedBy:""}
@@ -93,7 +77,7 @@ describe('app-engine', () => {
 
     it('Should return the status board after a play', () => {
         //GIVEN
-        const givenBoard:{row:number,column:number,enable:boolean,modifiedBy:string}[]= [
+        const givenBoard:Cell[]= [
             {row:1,column:1,enable:false,modifiedBy:"X"},{row:1,column:2,enable:true,modifiedBy:""},{row:1,column:3,enable:true,modifiedBy:""},
             {row:2,column:1,enable:true,modifiedBy:""},{row:2,column:2,enable:true,modifiedBy:""},{row:2,column:3,enable:true,modifiedBy:""},
             {row:3,column:1,enable:true,modifiedBy:""},{row:3,column:2,enable:true,modifiedBy:""},{row:3,column:3,enable:true,modifiedBy:""}
@@ -110,7 +94,7 @@ describe('app-engine', () => {
 
     it('Should check if it is a draw game', () => {
         //GIVEN
-        const givenBoard:{row:number,column:number,enable:boolean,modifiedBy:string}[]= [
+        const givenBoard:Cell[]= [
             {row:1,column:1,enable:true,modifiedBy:""},{row:1,column:2,enable:true,modifiedBy:""},{row:1,column:3,enable:true,modifiedBy:""},
             {row:2,column:1,enable:true,modifiedBy:""},{row:2,column:2,enable:true,modifiedBy:""},{row:2,column:3,enable:true,modifiedBy:""},
             {row:3,column:1,enable:true,modifiedBy:""},{row:3,column:2,enable:true,modifiedBy:""},{row:3,column:3,enable:true,modifiedBy:""}
@@ -134,7 +118,7 @@ describe('app-engine', () => {
 
     it('Should disable cells after a win', () => {
         //GIVEN
-        const givenBoard:{row:number,column:number,enable:boolean,modifiedBy:string}[]= [
+        const givenBoard:Cell[]= [
             {row:1,column:1,enable:false,modifiedBy:"X"},{row:1,column:2,enable:false,modifiedBy:"O"},{row:1,column:3,enable:true,modifiedBy:""},
             {row:2,column:1,enable:true,modifiedBy:""},{row:2,column:2,enable:false,modifiedBy:"X"},{row:2,column:3,enable:false,modifiedBy:"O"},
             {row:3,column:1,enable:true,modifiedBy:""},{row:3,column:2,enable:true,modifiedBy:""},{row:3,column:3,enable:false,modifiedBy:"X"}

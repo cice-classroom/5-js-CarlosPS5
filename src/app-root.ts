@@ -1,5 +1,7 @@
 import { customElement, property, LitElement, html, css } from 'lit-element';
+import type { Cell } from './app-board';
 import {Engine} from './app-engine'
+
 
 @customElement('app-root')
 export class AppRoot extends LitElement {
@@ -29,7 +31,7 @@ export class AppRoot extends LitElement {
   }
 
   @property()
-  cells: {row:number,column:number,enable:boolean,modifiedBy:string}[] = [
+  cells: Cell[] = [
     {row:1,column:1,enable:true,modifiedBy:""},{row:1,column:2,enable:true,modifiedBy:""},{row:1,column:3,enable:true,modifiedBy:""},
     {row:2,column:1,enable:true,modifiedBy:""},{row:2,column:2,enable:true,modifiedBy:""},{row:2,column:3,enable:true,modifiedBy:""},
     {row:3,column:1,enable:true,modifiedBy:""},{row:3,column:2,enable:true,modifiedBy:""},{row:3,column:3,enable:true,modifiedBy:""}
